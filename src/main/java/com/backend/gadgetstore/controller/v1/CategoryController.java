@@ -3,6 +3,7 @@ package com.backend.gadgetstore.controller.v1;
 import com.backend.gadgetstore.dto.request.CategoryRequest;
 import com.backend.gadgetstore.dto.response.CategoryResponse;
 import com.backend.gadgetstore.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @Operation(summary = "Create a category")
     @PostMapping
     public ResponseEntity<CategoryResponse> create(
             @Valid @RequestBody CategoryRequest request
@@ -30,6 +32,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @Operation(summary = "List all categories")
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAll() {
         List<CategoryResponse> responses =
@@ -38,6 +41,7 @@ public class CategoryController {
         return ResponseEntity.ok(responses);
     }
 
+    @Operation(summary = "Get a category")
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getById(
             @PathVariable Long id
@@ -48,6 +52,7 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Update a category")
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponse> update(
             @PathVariable Long id,
@@ -59,6 +64,7 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Delete a category")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable Long id

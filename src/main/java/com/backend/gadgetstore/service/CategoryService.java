@@ -5,7 +5,7 @@ import com.backend.gadgetstore.dto.response.CategoryResponse;
 import com.backend.gadgetstore.entity.Category;
 import com.backend.gadgetstore.exception.DuplicateResourceException;
 import com.backend.gadgetstore.exception.ResourceNotFoundException;
-import com.backend.gadgetstore.maper.CategoryMapper;
+import com.backend.gadgetstore.mapper.CategoryMapper;
 import com.backend.gadgetstore.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

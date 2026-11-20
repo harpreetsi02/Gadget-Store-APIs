@@ -1,4 +1,4 @@
-package com.backend.gadgetstore.maper;
+package com.backend.gadgetstore.mapper;
 
 import com.backend.gadgetstore.dto.request.CategoryRequest;
 import com.backend.gadgetstore.dto.response.CategoryResponse;

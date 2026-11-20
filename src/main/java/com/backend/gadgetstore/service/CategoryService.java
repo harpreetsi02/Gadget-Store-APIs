@@ -4,9 +4,11 @@ import com.backend.gadgetstore.dto.request.CategoryRequest;
 import com.backend.gadgetstore.dto.response.CategoryResponse;
 import com.backend.gadgetstore.entity.Category;
 import com.backend.gadgetstore.exception.DuplicateResourceException;
+import com.backend.gadgetstore.exception.ResourceInUseException;
 import com.backend.gadgetstore.exception.ResourceNotFoundException;
 import com.backend.gadgetstore.mapper.CategoryMapper;
 import com.backend.gadgetstore.repository.CategoryRepository;
+import com.backend.gadgetstore.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+    private final ProductRepository productRepository;
+
 
     @Transactional
     public CategoryResponse create(CategoryRequest request){
@@ -62,6 +66,9 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id){
+        if (productRepository.existsByCategory_Id(id)){
+            throw new ResourceInUseException("Category has products and cannot be deleted");
+        }
         categoryRepository.delete(findOrThrow(id));
     }
 

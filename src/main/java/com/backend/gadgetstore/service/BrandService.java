@@ -4,9 +4,11 @@ import com.backend.gadgetstore.dto.request.BrandRequest;
 import com.backend.gadgetstore.dto.response.BrandResponse;
 import com.backend.gadgetstore.entity.Brand;
 import com.backend.gadgetstore.exception.DuplicateResourceException;
+import com.backend.gadgetstore.exception.ResourceInUseException;
 import com.backend.gadgetstore.exception.ResourceNotFoundException;
 import com.backend.gadgetstore.mapper.BrandMapper;
 import com.backend.gadgetstore.repository.BrandRepository;
+import com.backend.gadgetstore.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class BrandService {
 
     private final BrandRepository brandRepository;
     private final BrandMapper brandMapper;
+    private final ProductRepository productRepository;
 
     @Transactional
     public BrandResponse create(BrandRequest request){
@@ -63,6 +66,9 @@ public class BrandService {
 
     @Transactional
     public void delete(Long id){
+        if (productRepository.existsByBrand_Id(id)){
+            throw new ResourceInUseException("Brand has products and cannot be deleted");
+        }
         brandRepository.delete(findOrThrow(id));
     }
 

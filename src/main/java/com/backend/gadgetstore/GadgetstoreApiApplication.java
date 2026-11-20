@@ -1,4 +1,4 @@
-package com.backend.gadgetstore_api;
+package com.backend.gadgetstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

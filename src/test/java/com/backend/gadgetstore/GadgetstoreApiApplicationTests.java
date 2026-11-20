@@ -1,4 +1,4 @@
-package com.backend.gadgetstore_api;
+package com.backend.gadgetstore;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

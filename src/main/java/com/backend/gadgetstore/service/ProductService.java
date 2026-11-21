@@ -40,7 +40,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<ProductResult> getAll(){
-        return productRepository.findAll()
+        return productRepository.findAllWithDetails()
                 .stream()
                 .map(productMapper::toResult)
                 .toList();
@@ -48,7 +48,10 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductResult findById(Long productId){
-        return productMapper.toResult(findOrThrow(productId));
+        Product product = productRepository.findByIdWithDetails(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product", productId));
+
+        return productMapper.toResult(product);
     }
 
     @Transactional
